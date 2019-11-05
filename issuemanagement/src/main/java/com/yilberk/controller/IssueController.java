@@ -13,45 +13,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yilberk.dto.ProjectDto;
-import com.yilberk.service.ProjectService;
+import com.yilberk.dto.IssueDto;
+import com.yilberk.service.IssueService;
 import com.yilberk.util.ApiPaths;
 
-
 @RestController
-@RequestMapping(ApiPaths.ProjectControllerPath.path)
-public class ProjectController {
+@RequestMapping(ApiPaths.IssueControllerPath.path)
+public class IssueController {
 
-	private final ProjectService projectService;
+	private final IssueService issueService;
 
 	@Autowired
-	public ProjectController(ProjectService projectService) {
-		this.projectService = projectService;
+	public IssueController(IssueService issueService) {
+		this.issueService = issueService;
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id", required = true) Long id) {
-		ProjectDto projectDto = projectService.getById(id);
-		return ResponseEntity.ok(projectDto);
+	public ResponseEntity<IssueDto> getById(@PathVariable(value = "id", required = true) Long id) {
+		IssueDto issueDto = issueService.getById(id);
+		return ResponseEntity.ok(issueDto);
 
 	}
 
 	@PostMapping()
-	public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto projectDto) {
-		return ResponseEntity.ok(projectService.save(projectDto));
+	public ResponseEntity<IssueDto> createProject(@Valid @RequestBody IssueDto issueDto) {
+		return ResponseEntity.ok(issueService.save(issueDto));
 
 	}
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ProjectDto> updateProject(@PathVariable(value = "id", required = true) Long id,@Valid @RequestBody ProjectDto projectDto) {
+	public ResponseEntity<IssueDto> updateProject(@PathVariable(value = "id", required = true) Long id,@Valid @RequestBody IssueDto issueDto) {
 
-		return ResponseEntity.ok(projectService.update(id, projectDto));
+		return ResponseEntity.ok(issueService.update(id, issueDto));
 
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteProject(@PathVariable(value = "id", required = true) Long id) {
 
-		return ResponseEntity.ok(projectService.delete(id));
+		return ResponseEntity.ok(issueService.delete(id));
 
 	}
 

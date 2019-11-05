@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.yilberk.dataaccess.IssueRepository;
 import com.yilberk.domain.Issue;
+import com.yilberk.domain.Project;
 import com.yilberk.dto.IssueDto;
+import com.yilberk.dto.ProjectDto;
 import com.yilberk.service.IssueService;
 import com.yilberk.util.TPage;
 
@@ -38,8 +40,8 @@ public class IssueServiceImpl implements IssueService{
 
 	@Override
 	public IssueDto getById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Issue issue = issueRepository.getOne(id);
+		return modelMapper.map(issue, IssueDto.class);
 	}
 
 	@Override
@@ -52,7 +54,13 @@ public class IssueServiceImpl implements IssueService{
 	}
 
 	@Override
-	public Boolean delete(IssueDto issue) {
+	public Boolean delete(Long id) {
+		issueRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public IssueDto update(Long id, IssueDto issueDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
