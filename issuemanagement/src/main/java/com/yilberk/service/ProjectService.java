@@ -6,13 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.yilberk.domain.Project;
+import com.yilberk.dto.ProjectDto;
 
 
 public interface ProjectService {
 	
 	Project save(Project project);
 	
-	Project getById(Long id);
+	ProjectDto getById(Long id);
 	
 	List<Project> getByProjectCode(String projectCode);
 	
