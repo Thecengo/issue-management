@@ -11,16 +11,22 @@ import com.yilberk.dto.ProjectDto;
 
 public interface ProjectService {
 	
-	Project save(Project project);
+	ProjectDto save(ProjectDto projectDto);
 	
 	ProjectDto getById(Long id);
 	
-	List<Project> getByProjectCode(String projectCode);
+	ProjectDto update(Long id, ProjectDto projectDto);
+	
+	ProjectDto getByProjectCode(String projectCode);
 	
 	List<Project> getByProjectCodeContains(String projectCode);
 	
 	Page<Project> getAllPageable(Pageable pageable);
 	
-	Boolean delete(Project project);
+	Boolean delete(ProjectDto projectDto);
+	
+	Boolean delete(Long id);
+	
+	
 
 }

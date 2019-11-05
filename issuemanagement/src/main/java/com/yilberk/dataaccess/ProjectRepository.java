@@ -9,13 +9,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.yilberk.domain.Project;
 
+
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-	List<Project> getByProjectCode(String projectCode);
+	Project getByProjectCode(String projectCode);
+	
+	Project getByProjectCodeAndIdNot(String projectCode, Long id);
 	
 	List<Project> getByProjectCodeContains(String project);
 	
 	Page<Project> findAll(Pageable pageable);
 	
 	List<Project> findAll(Sort sort);
+	
+	void deleteById(Long id);
+	
+	
 }

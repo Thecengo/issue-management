@@ -26,13 +26,18 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public Project save(Project project) {
-		if(project.getProjectCode() == null) {
-			throw new IllegalArgumentException("object can't be null");
-			
-			
+	public ProjectDto save(ProjectDto projectDto) {
+		
+		Project projectCodeCheck = projectRepository.getByProjectCode(projectDto.getProjectCode());
+		
+		if(projectCodeCheck != null) {
+			throw new IllegalArgumentException("project code can not be same");
 		}
-		return projectRepository.save(project);
+		Project project = modelMapper.map(projectDto,Project.class);
+		project = projectRepository.save(project);
+		projectDto.setId(project.getId());
+		
+		return projectDto;
 	}
 
 	@Override
@@ -42,9 +47,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<Project> getByProjectCode(String projectCode) {
+	public ProjectDto getByProjectCode(String projectCode) {
 		// TODO Auto-generated method stub
-		return projectRepository.getByProjectCode(projectCode);
+		//return projectRepository.getByProjectCode(projectCode);
+		return null;
 	}
 
 	@Override
@@ -60,9 +66,35 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Boolean delete(Project project) {
+	public ProjectDto update(Long id, ProjectDto projectDto) {
+		Project projectDb = projectRepository.getOne(id);
+		if(projectDb == null) {
+			throw new IllegalArgumentException("Id was not found"+id);
+		}
+		
+		Project projectCodeCheck = projectRepository.getByProjectCodeAndIdNot(projectDto.getProjectCode(), id);
+		if(projectCodeCheck != null) {
+			throw new IllegalArgumentException("project code can not be same");
+		}
+		
+		projectDb.setProjectCode(projectDto.getProjectCode());
+	    projectDb.setProjectName(projectDto.getProjectName());
+	    
+	    projectRepository.save(projectDb);
+		
+		return modelMapper.map(projectDb, ProjectDto.class);
+	}
+
+	@Override
+	public Boolean delete(ProjectDto projectDto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Boolean delete(Long id) {
+		projectRepository.deleteById(id);
+		return true;
 	}
 
 }
