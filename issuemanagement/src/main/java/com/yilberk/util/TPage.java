@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
+import lombok.Data;
 
+@Data
 public class TPage<T> {
 	
 	private int number;

@@ -2,11 +2,11 @@ package com.yilberk.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.yilberk.domain.Project;
 import com.yilberk.dto.ProjectDto;
+import com.yilberk.util.TPage;
 
 
 public interface ProjectService {
@@ -21,7 +21,7 @@ public interface ProjectService {
 	
 	List<Project> getByProjectCodeContains(String projectCode);
 	
-	Page<Project> getAllPageable(Pageable pageable);
+	TPage<ProjectDto> getAllPageable(Pageable pageable);
 	
 	Boolean delete(ProjectDto projectDto);
 	

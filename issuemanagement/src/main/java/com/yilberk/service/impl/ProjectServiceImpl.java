@@ -1,5 +1,6 @@
 package com.yilberk.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import com.yilberk.dataaccess.ProjectRepository;
 import com.yilberk.domain.Project;
 import com.yilberk.dto.ProjectDto;
 import com.yilberk.service.ProjectService;
+import com.yilberk.util.TPage;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -59,11 +61,13 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.getByProjectCodeContains(projectCode);
 	}
 
-	@Override
-	public Page<Project> getAllPageable(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return projectRepository.findAll(pageable);
-	}
+    @Override
+    public TPage<ProjectDto> getAllPageable(Pageable pageable) {
+        Page<Project> data = projectRepository.findAll(pageable);
+        TPage<ProjectDto> respnose = new TPage<ProjectDto>();
+        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
+        return respnose;
+    }
 
 	@Override
 	public ProjectDto update(Long id, ProjectDto projectDto) {
