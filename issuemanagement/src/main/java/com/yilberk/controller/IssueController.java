@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yilberk.dto.IssueDto;
+import com.yilberk.dto.ProjectDto;
 import com.yilberk.service.IssueService;
 import com.yilberk.util.ApiPaths;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(ApiPaths.IssueControllerPath.path)
+@Api(value = ApiPaths.IssueControllerPath.path,description= "issue APIs")
 public class IssueController {
 
 	private final IssueService issueService;
@@ -29,6 +34,7 @@ public class IssueController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value = "get by id operation", response = IssueDto.class)
 	public ResponseEntity<IssueDto> getById(@PathVariable(value = "id", required = true) Long id) {
 		IssueDto issueDto = issueService.getById(id);
 		return ResponseEntity.ok(issueDto);
@@ -36,11 +42,13 @@ public class IssueController {
 	}
 
 	@PostMapping()
+	@ApiOperation(value = "crate operation", response = IssueDto.class)
 	public ResponseEntity<IssueDto> createProject(@Valid @RequestBody IssueDto issueDto) {
 		return ResponseEntity.ok(issueService.save(issueDto));
 
 	}
 	@PutMapping("/update/{id}")
+	@ApiOperation(value = "update operation", response = IssueDto.class)
 	public ResponseEntity<IssueDto> updateProject(@PathVariable(value = "id", required = true) Long id,@Valid @RequestBody IssueDto issueDto) {
 
 		return ResponseEntity.ok(issueService.update(id, issueDto));
@@ -48,6 +56,7 @@ public class IssueController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "delete operation", response = IssueDto.class)
 	public ResponseEntity<Boolean> deleteProject(@PathVariable(value = "id", required = true) Long id) {
 
 		return ResponseEntity.ok(issueService.delete(id));
