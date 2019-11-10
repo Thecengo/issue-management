@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(ApiPaths.ProjectControllerPath.path)
 @Api(value = ApiPaths.ProjectControllerPath.path, description = "project APIs")
 @Slf4j
+@CrossOrigin
 public class ProjectController {
 
 	private final ProjectService projectService;
@@ -36,13 +38,6 @@ public class ProjectController {
 		this.projectService = projectService;
 	}
 
-//	@GetMapping("/pagination")
-//	@ApiOperation(value = "pagination operation", response = TPage.class)
-//	public ResponseEntity<TPage<ProjectDto>> getByPagination(Pageable pageable) {
-//		TPage<ProjectDto> data = projectService.getAllPageable(pageable);
-//		return ResponseEntity.ok(data);
-//
-//	}
 	@GetMapping("/pagination")
 	@ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
 	public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {

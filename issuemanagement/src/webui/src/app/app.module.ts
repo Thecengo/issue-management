@@ -8,7 +8,19 @@ import {HeaderComponent} from "./_layout/header/header.component";
 import {SidebarComponent} from "./_layout/sidebar/sidebar.component";
 import {BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule} from "ngx-bootstrap";
 import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
+import { ApiService } from './services/api.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+//import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { ProjectService } from './services/Shared/project.service';
+import { IssueServie } from './services/Shared/issue.service';
 
+export const createTranslateLoader = (http: HttpClient)=>{
+  return new TranslateHttpLoader(http,'./../assets/i18n/','.json');
+}
+  
 
 @NgModule({
   declarations: [
@@ -20,7 +32,9 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
+    NgxDatatableModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
@@ -32,8 +46,15 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr
       maxOpened: 1,
       autoDismiss: true
     }),
+    TranslateModule.forRoot({
+     loader: {
+       provide:TranslateLoader,
+       useFactory:createTranslateLoader,
+       deps: [HttpClient]
+     } 
+    })
   ],
-  providers: [],
+  providers: [ApiService,ProjectService,IssueServie],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
