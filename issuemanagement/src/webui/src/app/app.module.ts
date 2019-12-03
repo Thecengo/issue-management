@@ -16,6 +16,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { ProjectService } from './services/Shared/project.service';
 import { IssueServie } from './services/Shared/issue.service';
+import { UserService } from './services/Shared/user.service';
 
 export const createTranslateLoader = (http: HttpClient)=>{
   return new TranslateHttpLoader(http,'./../assets/i18n/','.json');
@@ -54,7 +55,7 @@ export const createTranslateLoader = (http: HttpClient)=>{
      } 
     })
   ],
-  providers: [ApiService,ProjectService,IssueServie],
+  providers: [ApiService,ProjectService,IssueServie,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

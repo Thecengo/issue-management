@@ -23,7 +23,7 @@ public class SwaggerConfig {
 	}
 
 	@Bean
-	public Docket petApi() {
+	public Docket issueApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select().paths(PathSelectors.any())

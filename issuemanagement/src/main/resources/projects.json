@@ -1,18 +1,14 @@
 [
-
     {
-        "_class" : "com.yilberk.domain.Project",
-        "projectCode" :"IM001",
-        "projectName" :"Issue management project"
+        "_class" : "com.yilberk.domain.User",
+        "username" :"thecengo",
+        "nameSurname" :"Cengiz Yılmaz",
+        "email":"cengiz@yilmaz.com"
     },
     {
-        "_class" : "com.yilberk.domain.Project",
-        "projectCode" :"ERP-s",
-        "projectName" :"Erp project for sales"
-    },
-    {
-        "_class" : "com.yilberk.domain.Project",
-        "projectCode" :"CRM-s",
-        "projectName" :"Crm project for sales"
+        "_class" : "com.yilberk.domain.User",
+        "username" :"theghost",
+        "nameSurname" :"Ghost ghost",
+        "email":"whiteghost@ghost.com"
     }
 ]

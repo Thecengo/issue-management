@@ -11,5 +11,9 @@ public final class ApiPaths {
 	public static final class ProjectControllerPath{
 		public static final String path = BASE_PATH + "/project";
 	}
+	
+	public static final class UserControllerPath{
+		public static final String path = BASE_PATH + "/user";
+	}
 
 }

@@ -44,7 +44,7 @@ export class IssueServie{
     }
 
     createIssue(issue) : Observable<any> {
-             return this.apiService.post(this.ISSUE_PATH).pipe(map(
+             return this.apiService.post(this.ISSUE_PATH,issue).pipe(map(
           res =>{
               if(res) {
                   return res;

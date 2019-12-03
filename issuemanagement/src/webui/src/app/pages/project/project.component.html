@@ -1,29 +1,78 @@
-<div class= "content-wrapper">
+<div class="content-wrapper">
   <h3>{{'ProjectList' | translate}}</h3>
-  <ngx-datatable
-    class="bootstrap"
-    [rows]="rows"
+
+  <ngx-datatable class="bootstrap"
+    [rows]="rows" 
     [columns]="cols"
-    [columnMode]="'force'"
+    [columnMode]="'force'" 
     [headerHeight]="50"
-    [footerHeight]="50"
-    [rowHeight]="'auto'"
-    [externalPaging]="true"
+    [footerHeight]="50" 
+    [rowHeight]="'auto'" 
+    [externalPaging]="true" 
     [count]="page.totalElements"
     [offset]="page.number"
-    [limit]="page.size"
+    [limit]="page.size" 
     (page)='setPage($event)'>
   </ngx-datatable>
-<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+
+  <ng-template #templateProjectDeleteCell let-row="row" let-value="value">
+      <button (click)="showProjectDeleteConfirmation(value)"><i class="material-icons">delete</i></button>
+    </ng-template>
+
+  <div >
+    <button type="button" class="btn btn-primary" (click)="openModal(template)">{{'New' | translate}}</button>
+  </div>
+
   <ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    This is a modal.
-  </div>
-</ng-template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{'Project Detail' | translate}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+          <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+
+        <div class="form-group">
+          <label>{{'Project Code'| translate}}</label>
+
+          <input type="text" formControlName="projectCode" class="form-control" [ngClass]="{ 'is-invalid': form.projectCode.errors }" />
+          <div *ngIf="form.projectCode.errors" class="invalid-feedback">
+            <div *ngIf="form.projectCode.errors.required">{{'Project Code is required'| translate}}</div>
+            <div *ngIf="form.projectCode.errors.minlength">{{'Project Code should be (min) 2 char'| translate}}</div>
+            <div *ngIf="form.projectCode.errors.maxlength">{{'Project Code should be (max) 10 char'| translate}}</div> 
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{'Project Name'| translate}}</label>
+
+          <input type="text" formControlName="projectName" class="form-control" [ngClass]="{ 'is-invalid': form.projectName.errors }" />
+          <div *ngIf="form.projectName.errors" class="invalid-feedback">
+            <div *ngIf="form.projectName.errors.required">{{'Project Name is required'| translate}}</div>
+            <div *ngIf="form.projectName.errors.minlength">{{'Project Name should be (min) 4 char'| translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{'Project Manager'| translate}}</label>
+        
+          <select  formControlName="managerId" class="form-control"
+            [ngClass]="{ 'is-invalid': form.managerId.errors }">
+            <option *ngFor="let opt of managerOptions" [value]="opt.id">{{opt.nameSurname}}</option>
+          </select>
+        
+          <div *ngIf="form.managerId.errors" class="invalid-feedback">
+            <div *ngIf="form.projectName.errors.required">{{'Project Manager is required'| translate}}</div>
+          </div>
+        </div>
+
+        <div class="modal-footer" >
+          <button class="btn btn-light" (click)="closeAndResetModal()">{{ 'Close' | translate }}</button>
+          <button class="btn btn-primary" >{{ 'Save' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>

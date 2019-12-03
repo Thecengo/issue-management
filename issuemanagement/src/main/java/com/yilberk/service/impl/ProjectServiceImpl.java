@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.yilberk.dataaccess.ProjectRepository;
 import com.yilberk.domain.Project;
+import com.yilberk.domain.User;
 import com.yilberk.dto.ProjectDto;
+import com.yilberk.dto.UserDto;
 import com.yilberk.service.ProjectService;
+import com.yilberk.service.UserService;
 import com.yilberk.util.TPage;
 
 @Service
@@ -20,11 +23,15 @@ public class ProjectServiceImpl implements ProjectService {
 
 	private final ProjectRepository projectRepository;
 	private final ModelMapper modelMapper;
+	private final UserService userService;
 	
 	@Autowired
-	public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper) {
+	public ProjectServiceImpl(ProjectRepository projectRepository
+			, ModelMapper modelMapper
+			, UserService userService) {
 		this.modelMapper = modelMapper;
 		this.projectRepository = projectRepository;
+		this.userService = userService;
 	}
 	
 	@Override
@@ -35,9 +42,16 @@ public class ProjectServiceImpl implements ProjectService {
 		if(projectCodeCheck != null) {
 			throw new IllegalArgumentException("project code can not be same");
 		}
+		
 		Project project = modelMapper.map(projectDto,Project.class);
+		UserDto user = userService.getById(projectDto.getId());
+		projectDto.setManager(user);
+		
+		System.out.print("project dto manager"+projectDto.getManager());
+	
 		project = projectRepository.save(project);
 		projectDto.setId(project.getId());
+		
 		
 		return projectDto;
 	}
@@ -64,9 +78,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public TPage<ProjectDto> getAllPageable(Pageable pageable) {
         Page<Project> data = projectRepository.findAll(pageable);
-        TPage<ProjectDto> respnose = new TPage<ProjectDto>();
-        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
-        return respnose;
+        TPage<ProjectDto> response = new TPage<ProjectDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
+        return response;
+        
     }
 
 	@Override

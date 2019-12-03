@@ -23,7 +23,7 @@ export class ProjectService{
 
               }else {
                   console.log(res);
-                  return null;
+                  return {};
               }
           }
       ));
@@ -45,7 +45,7 @@ export class ProjectService{
     }
 
     create(project) : Observable<any> {
-             return this.apiService.post(this.PROJECT_PATH).pipe(map(
+             return this.apiService.post(this.PROJECT_PATH,project).pipe(map(
           res =>{
               if(res) {
                   return res;
@@ -60,7 +60,7 @@ export class ProjectService{
     }
 
     delete(id) : Observable<any> {
-        return this.apiService.delete(this.PROJECT_PATH,id).pipe(map(
+        return this.apiService.delete(this.PROJECT_PATH+ '/' +id).pipe(map(
      res =>{
          if(res) {
              return res;

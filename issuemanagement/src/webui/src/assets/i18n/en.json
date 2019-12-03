@@ -1,4 +1,14 @@
 {
     "Dashboard":"dashboard",
-    "ProjectList":"Project List"
+    "ProjectList":"Project List",
+    "Project Detail":"Project Detail",
+    "Project Name should be (min) 4 char":"Project Name should be (min) 4 char",
+    "Project Name is required":"Project Name is required",
+    "Project Code should be (max) 10 char":"Project Code should be (max) 10 char",
+    "Project Code is required":"Project Code is required",
+    "Project Code should be (min) 2 char": "Project Code should be (min) 2 char",
+    "Close":"Close",
+    "confirm":"Confirm",
+    "Save":"Save",
+    "New":"New"
 }

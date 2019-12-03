@@ -1,18 +1,22 @@
 package com.yilberk.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import com.yilberk.domain.User;
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import com.yilberk.dto.UserDto;
+import com.yilberk.util.TPage;
 
 public interface UserService {
 	
-	User save(User user);
+	UserDto save(UserDto userDto);
 	
-	User getById(Long id);
+	UserDto getById(Long id);
 	
-	Page<User> getAllPageable(Pageable pageable);
+	TPage<UserDto> getAllPageable(Pageable pageable);
 	
-	User getByUserName(String userName);
+	UserDto getByUserName(String userName);
+	
+	List<UserDto> getAll();
 
 }
